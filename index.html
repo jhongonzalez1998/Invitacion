@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Jhon & Keyla | Nuestra Boda 💍</title>
+    
+    <meta name="theme-color" content="#fdfaf0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600&family=Playwrite+IE:wght@100&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --arena: #c2a36a;
+            --texto: #3d3d3d;
+            --blanco: #ffffff;
+            --negro: #000000;
+            --sombra: 0px 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* --- FONDO DE PAPEL GLOBAL --- */
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fdfaf0;
+            background-image: url('papel.jpg'); /* TEXTURA DE FONDO */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--texto);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- SOBRE VIRTUAL (AHORA SOBRE EL PAPEL) --- */
+        #wrapper-sobre {
+            height: 100vh; width: 100vw;
+            /* Quitamos el fondo negro total para que se vea la textura desde el inicio */
+            background-image: url('papel.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex; justify-content: center; align-items: center;
+            position: fixed; top: 0; left: 0; z-index: 5000;
+        }
+
+        /* El sobre ahora parece una tarjeta física */
+        #sobre {
+            width: 90%; max-width: 350px; height: 250px;
+            background-color: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(194, 163, 106, 0.3);
+            border-radius: 4px;
+            position: relative; cursor: pointer; text-align: center; padding: 40px 20px;
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.05);
+            transition: all 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        #sobre::before {
+            content: ""; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(194, 163, 106, 0.2); pointer-events: none;
+        }
+
+        .sello-cera { font-size: 3rem; color: var(--arena); margin-bottom: 20px; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1)); }
+        .nombres-sobre { font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 8px; font-weight: 300; color: var(--texto); }
+        .frase-sobre { font-family: 'Playwrite IE', cursive; font-size: 1.2rem; color: var(--arena); }
+
+        /* Animación de apertura */
+        #sobre.abierto { transform: scale(2) translateY(-100vh); opacity: 0; }
+
+        /* --- CONTENIDO INVITACIÓN --- */
+        #contenido-invitacion { display: none; opacity: 0; transition: opacity 1.5s ease; }
+
+        /* --- PORTADA (HERO) --- */
+        .hero { height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        
+        .foto-marco {
+            width: 85%; max-width: 320px; background-color: var(--blanco);
+            padding: 12px 12px 40px 12px; /* Espacio abajo tipo Polaroid */
+            border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 35px; transform: rotate(-2deg); transition: 0.5s;
+        }
+        .foto-marco img { width: 100%; height: auto; display: block; filter: sepia(0.2); }
+
+        .nombres-portada { font-family: 'Playwrite IE', cursive; font-size: clamp(2rem, 10vw, 3.5rem); color: var(--arena); margin-bottom: 5px; }
+        .fecha-portada { font-size: 0.8rem; letter-spacing: 8px; font-weight: 300; text-transform: uppercase; margin-top: 10px; }
+
+        /* --- SECCIONES --- */
+        section { padding: 80px 25px; text-align: center; max-width: 800px; margin: 0 auto; }
+        .titulo-seccion { font-family: 'Playwrite IE', cursive; color: var(--arena); font-size: 1.8rem; margin-bottom: 30px; }
+        .texto-detalle { font-size: 0.85rem; letter-spacing: 2px; line-height: 2; margin-bottom: 15px; text-transform: uppercase; font-weight: 400; color: var(--texto); }
+        .separador { width: 60px; height: 1px; background-color: var(--arena); margin: 40px auto; opacity: 0.3; }
+
+        /* --- CONTADOR --- */
+        .contador-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .box-time { min-width: 70px; }
+        .num { font-size: 2.5rem; font-weight: 100; display: block; color: var(--texto); line-height: 1; }
+        .lab { font-size: 0.55rem; letter-spacing: 3px; color: var(--arena); font-weight: 600; margin-top: 10px; text-transform: uppercase; }
+
+        /* --- BOTONES --- */
+        .btn-action {
+            display: inline-block; padding: 14px 40px; border: 1px solid var(--arena);
+            color: var(--arena); text-decoration: none; font-size: 0.75rem; letter-spacing: 3px;
+            text-transform: uppercase; transition: 0.4s; margin-top: 20px; cursor: pointer; background: transparent; font-weight: 600;
+        }
+        .btn-action:hover { background: var(--arena); color: var(--blanco); }
+
+        /* --- DATOS BANCO --- */
+        #datos-banco {
+            display: none; background: rgba(255, 255, 255, 0.5);
+            padding: 25px; margin: 25px auto; border: 1px solid var(--arena);
+            font-size: 0.8rem; line-height: 2; text-align: left;
+            max-width: 320px; box-shadow: var(--sombra); position: relative;
+            animation: fadeIn 0.6s ease;
+        }
+
+        /* --- FORMULARIO --- */
+        .form-confirmar { background: rgba(255, 255, 255, 0.4); padding: 40px 25px; border-radius: 4px; border: 1px solid rgba(194, 163, 106, 0.1); margin-top: 30px; text-align: left; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 0.6rem; letter-spacing: 2px; color: var(--arena); margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+        .input-group input, .input-group select { width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(0,0,0,0.1); color: var(--texto); font-family: 'Montserrat'; font-size: 0.9rem; border-radius: 0; outline: none; }
+
+        #music-btn { position: fixed; bottom: 25px; right: 25px; background: rgba(255, 255, 255, 0.5); color: var(--arena); border: 1px solid var(--arena); width: 45px; height: 45px; border-radius: 50%; z-index: 1000; cursor: pointer; display: none; box-shadow: var(--sombra); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-10px); opacity: 1; } }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper-sobre">
+        <div id="sobre" onclick="abrirSobre()">
+            <div class="nombres-sobre">Jhon & Keyla</div>
+            <div class="frase-sobre">Con mucho cariño para ti</div>
+            <p style="font-size:0.5rem; letter-spacing:4px; margin-top:30px; opacity:0.5; font-weight:600;">DA CLIC PARA ABRIR</p>
+        </div>
+    </div>
+
+    <div id="contenido-invitacion">
+        <section class="hero">
+            <div class="foto-marco">
+                <img src="hero.jpg" alt="Jhon & Keyla">
+            </div>
+            <h1 class="nombres-portada">Jhon & Keyla</h1>
+            <div class="fecha-portada">07 . NOV . 2026</div>
+            <i class="fas fa-chevron-down" style="color:var(--arena); margin-top:45px; animation: bounce 2.5s infinite;"></i>
+        </section>
+
+        <section id="cuenta-regresiva">
+            <div class="titulo-seccion">Solo faltan...</div>
+            <div class="contador-grid">
+                <div class="box-time"><span id="days" class="num">00</span><span class="lab">Días</span></div>
+                <div class="box-time"><span id="hours" class="num">00</span><span class="lab">Horas</span></div>
+                <div class="box-time"><span id="minutes" class="num">00</span><span class="lab">Mins</span></div>
+                <div class="box-time"><span id="seconds" class="num">00</span><span class="lab">Segs</span></div>
+            </div>
+        </section>
+
+        <div class="separador"></div>
+
+        <section id="ubicacion">
+            <div class="titulo-seccion">Ubicación</div>
+            <p class="texto-detalle">Sábado, 07 de noviembre <br> 16:00 Horas</p>
+            <p class="texto-detalle" style="font-weight: 600; color: var(--arena);">Guayaquil, Ecuador</p>
+            <a href="https://maps.app.goo.gl/PiThJvrtkGHE6q4Q9" target="_blank" class="btn-action">
+                <i class="fas fa-location-dot"></i> Cómo llegar
+            </a>
+        </section>
+
+        <div class="separador"></div>
+
+        <section id="dress-code">
+            <div class="titulo-seccion">Dress Code</div>
+            <p class="texto-detalle">Formal - Elegante</p>
+            <div class="grid-icons" style="display:flex; justify-content:center; gap:50px; margin-top:30px;">
+                <div class="icon-item"><i class="fas fa-user-tie" style="font-size:2rem; color:var(--arena); margin-bottom:10px; display:block;"></i><p style="font-size:0.6rem; letter-spacing:2px; font-weight:600;">CABALLEROS</p></div>
+                <div class="icon-item"><i class="fas fa-person-dress" style="font-size:2rem; color:var(--arena); margin-bottom:10px; display:block;"></i><p style="font-size:0.6rem; letter-spacing:2px; font-weight:600;">DAMAS</p></div>
+            </div>
+        </section>
+
+        <div class="separador"></div>
+
+        <section id="regalos">
+            <div class="titulo-seccion">Lluvia de Sobres</div>
+            <p class="texto-detalle">Tu presencia es lo más importante. Si deseas darnos un detalle, tendremos un cofre para sobres el día del evento.</p>
+            <button onclick="toggleBanco()" class="btn-action">Ver Datos Bancarios</button>
+
+            <div id="datos-banco">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--arena); padding-bottom: 5px;">
+                    <span style="color: var(--arena); font-weight: 600; letter-spacing: 2px;">DATOS DE CUENTA</span>
+                    <i class="fas fa-times" onclick="toggleBanco()" style="cursor: pointer; font-size: 1.2rem; color: var(--arena); padding: 5px;"></i>
+                </div>
+                <p><strong>Banco Guayaquil</strong></p>
+                <p>Cta. Ahorros: 4224676</p>
+                <p>Jhon Gonzalez</p>
+                <p>CI: 0958378697</p>
+            </div>
+        </section>
+
+        <div class="separador"></div>
+
+        <section id="confirmacion">
+            <div class="titulo-seccion">Confirmación</div>
+            <p class="texto-detalle">Agradecemos confirmar tu asistencia antes del 15 de Octubre.</p>
+            <div class="form-confirmar">
+                <form id="form-boda">
+                    <div class="input-group">
+                        <label>Nombre y Apellido</label>
+                        <input type="text" name="nombre" required placeholder="Tu nombre">
+                    </div>
+                    <div class="input-group">
+                        <label>¿Asistirás?</label>
+                        <select name="asistencia" required>
+                            <option value="Sí">Sí, asistiré 💍</option>
+                            <option value="No">No podré asistir ✨</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Número de Pases</label>
+                        <input type="number" name="personas" value="1" min="1" max="10">
+                    </div>
+                    <button type="submit" id="btn-submit" class="btn-action" style="width:100%">Enviar confirmación</button>
+                </form>
+                <div id="mensaje-exito" style="display:none; text-align:center; color:var(--arena); margin-top:20px; font-weight:600;">
+                    ¡Respuesta enviada! Gracias.
+                </div>
+            </div>
+        </section>
+
+        <footer style="padding: 60px 20px; text-align: center; opacity: 0.4; font-size: 0.65rem; letter-spacing: 4px;">
+            JHON & KEYLA | 2026
+        </footer>
+    </div>
+
+    <audio id="musica" loop><source src="musica.mp3" type="audio/mpeg"></audio>
+    <button id="music-btn" onclick="controlMusica()"><i id="music-icon" class="fas fa-play"></i></button>
+
+    <script>
+        function abrirSobre() {
+            document.getElementById("sobre").classList.add("abierto");
+            controlMusica();
+            document.getElementById("music-btn").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("wrapper-sobre").style.display = "none";
+                const contenido = document.getElementById("contenido-invitacion");
+                contenido.style.display = "block";
+                setTimeout(() => { contenido.style.opacity = "1"; }, 100);
+            }, 1200);
+        }
+
+        const a = document.getElementById("musica");
+        const i = document.getElementById("music-icon");
+        function controlMusica() {
+            if (!a) return;
+            if (a.paused) { 
+                a.play().catch(e => console.log("Audio bloqueado")); 
+                i.className = "fas fa-pause"; 
+            } else { 
+                a.pause(); 
+                i.className = "fas fa-play"; 
+            }
+        }
+
+        const countdown = () => {
+            const countDate = new Date("Nov 7, 2026 16:00:00").getTime();
+            const now = new Date().getTime();
+            const gap = countDate - now;
+            const s = 1000, m = s * 60, h = m * 60, d = h * 24;
+            
+            const daysEl = document.getElementById("days");
+            if(daysEl) {
+                daysEl.innerText = Math.floor(gap / d);
+                document.getElementById("hours").innerText = Math.floor((gap % d) / h);
+                document.getElementById("minutes").innerText = Math.floor((gap % h) / m);
+                document.getElementById("seconds").innerText = Math.floor((gap % m) / s);
+            }
+        };
+        setInterval(countdown, 1000);
+
+        function toggleBanco() {
+            const b = document.getElementById("datos-banco");
+            b.style.display = (b.style.display === "block") ? "none" : "block";
+        }
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzdEmv4fNTWMYV_OKwk-W4tkeWMBBeKb3m_YP2GtGTXtdBFcz5aRT5w3RZjZ70qML0PYA/exec';
+        const form = document.getElementById('form-boda');
+        const btnSubmit = document.getElementById('btn-submit');
+
+        if (form) {
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                btnSubmit.innerText = "ENVIANDO...";
+                btnSubmit.disabled = true;
+                fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: new FormData(form) })
+                .then(() => {
+                    form.style.display = 'none';
+                    document.getElementById('mensaje-exito').style.display = 'block';
+                })
+                .catch(error => {
+                    btnSubmit.innerText = "ERROR AL ENVIAR";
+                    btnSubmit.disabled = false;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
