@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jhon & Keyla - Invitación de Boda</title>
     
-    <!-- Familias tipográficas aprobadas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -15,8 +14,8 @@
             --bg-color: #ffffff;
             --text-dark: #2a323d;       /* Gris oscuro / Azul marino apagado del PDF */
             --text-muted: #6e7a8a;      /* Gris intermedio para bloques de texto */
-            --accent-blue: #4d7aae;     /* El azul celeste característico de los nombres */
-            --accent-green: #8a96a3;    /* Verde salvia para detalles */
+            --accent-blue: #a0b2c6;     /* El azul celeste característico de los nombres */
+            --accent-green: #8ca38a;    /* Verde salvia para detalles */
             --border-light: #e8edf3;
         }
 
@@ -42,6 +41,7 @@
             background: var(--bg-color);
             padding: 70px 30px;
             box-shadow: 0 4px 40px rgba(0,0,0,0.02);
+            position: relative;
         }
 
         section {
@@ -56,7 +56,7 @@
             font-size: 1.1rem;
             letter-spacing: 7px;
             text-transform: uppercase;
-            color: var(--text-dark); /* Color oscuro del PDF */
+            color: var(--text-dark);
             font-weight: 400;
             margin-bottom: 30px;
         }
@@ -65,7 +65,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 3.8rem;
             font-weight: 400;
-            color: var(--accent-blue); /* Azul celeste del PDF */
+            color: var(--accent-blue);
             line-height: 1.1;
             margin: 25px 0;
             letter-spacing: 1px;
@@ -190,12 +190,12 @@
             font-weight: 300;
         }
 
-        /* Dress Code con color corregido */
+        /* Dress Code */
         .dress-main {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.2rem;
             font-weight: 400;
-            color: var(--accent-blue); /* Cambiado a Azul para hacer juego con el PDF */
+            color: var(--accent-blue);
             margin-bottom: 25px;
         }
 
@@ -296,7 +296,7 @@
             color: #ffffff;
         }
 
-        /* Contador con color azul */
+        /* Contador */
         .timer-layout {
             display: flex;
             justify-content: center;
@@ -312,7 +312,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.4rem;
             font-weight: 400;
-            color: var(--accent-blue); /* Números en azul del PDF */
+            color: var(--accent-blue);
             display: block;
             line-height: 1;
         }
@@ -346,17 +346,66 @@
             font-weight: 500;
             letter-spacing: 1px;
         }
+
+        /* --- BOTÓN FLOTANTE DE MÚSICA ANIMADO --- */
+        .music-player {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border-light);
+            backdrop-filter: blur(5px);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+
+        .music-icon {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-dark);
+            transition: fill 0.3s;
+        }
+
+        /* Animación suave de rotación si la música está activa */
+        .music-player.playing {
+            border-color: var(--accent-blue);
+            animation: rotatePlayer 4s linear infinite;
+        }
+
+        .music-player.playing .music-icon {
+            fill: var(--accent-blue);
+        }
+
+        @keyframes rotatePlayer {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
+    <audio id="bg-music" loop autoplay playsinline>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-player" id="music-toggle" onclick="toggleMusic()">
+        <svg class="music-icon" id="music-svg" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h6V3h-6z"/>
+        </svg>
+    </div>
+
     <div class="wrapper">
 
-        <!-- SECCIÓN 1: BIENVENIDA -->
         <section>
-            <h1 class="header-title">¡Nos Casamos!</h1> <!--[cite: 2] -->
-            
-            <div class="flower-element">
+            <h1 class="header-title">¡Nos Casamos!</h1> <div class="flower-element">
                 <svg width="65" height="35" viewBox="0 0 120 60">
                     <circle cx="35" cy="35" r="14" fill="#aabecf" />
                     <circle cx="53" cy="25" r="13" fill="#bad0e3" />
@@ -368,71 +417,44 @@
                 </svg>
             </div>
 
-            <div class="names">Jhon & Keyla</div> <!--[cite: 2] -->
-            <p class="main-date-place">07 de Noviembre de 2026 • Bosque Aventura</p> <!--[cite: 2] -->
-            
-            <h2 class="section-title">Bienvenida</h2> <!--[cite: 2] -->
-            <p class="body-text" style="margin-bottom: 20px;">
-                Con la bendición de Dios y nuestras familias, tenemos el honor de invitarte a celebrar nuestro matrimonio. <!--[cite: 2] -->
-            </p>
+            <div class="names">Jhon & Keyla</div> <p class="main-date-place">07 de Noviembre de 2026 • Bosque Aventura</p> <h2 class="section-title">Bienvenida</h2> <p class="body-text" style="margin-bottom: 20px;">
+                Con la bendición de Dios y nuestras familias, tenemos el honor de invitarte a celebrar nuestro matrimonio. </p>
             <p class="italic-phrase">
-                "Hemos compartido sueños, desafíos y cada etapa de nuestras vidas. Hoy, guiados por la mano de Dios, elegimos caminar juntos para siempre." <!--[cite: 2] -->
-            </p>
+                "Hemos compartido sueños, desafíos y cada etapa de nuestras vidas. Hoy, guiados por la mano de Dios, elegimos caminar juntos para siempre." </p>
         </section>
 
         <div class="card-divider"></div>
 
-        <!-- SECCIÓN 2: LUGAR E ITINERARIO -->
         <section>
-            <h2 class="section-title">Ceremonia y Recepción</h2> <!--[cite: 2] -->
-            <p class="body-text" style="color: var(--text-dark); font-weight: 400; font-size: 1.5rem; margin-bottom: 5px;">
-                Bosque Aventura <!--[cite: 2] -->
-            </p>
+            <h2 class="section-title">Ceremonia y Recepción</h2> <p class="body-text" style="color: var(--text-dark); font-weight: 400; font-size: 1.5rem; margin-bottom: 5px;">
+                Bosque Aventura </p>
             <p class="body-text-sans">
-                Sábado, 07 de Noviembre — 5:00 PM<br> <!--[cite: 2] -->
-                Km 33 Vía a la Costa <!--[cite: 2] -->
-            </p>
+                Sábado, 07 de Noviembre — 5:00 PM<br> Km 33 Vía a la Costa </p>
             
-            <a href="https://maps.google.com" target="_blank" class="map-button">Ver Mapa</a> <!--[cite: 2] -->
-
-            <div class="itinerary-grid">
+            <a href="https://maps.google.com" target="_blank" class="map-button">Ver Mapa</a> <div class="itinerary-grid">
                 <div class="card-divider" style="width: 35%; margin: 50px auto 30px auto;"></div>
-                <h3 class="section-title" style="font-size: 0.75rem; letter-spacing: 5px; margin-bottom: 15px;">Itinerario</h3> <!--[cite: 2] -->
-
-                <div class="itinerary-row">
+                <h3 class="section-title" style="font-size: 0.75rem; letter-spacing: 5px; margin-bottom: 15px;">Itinerario</h3> <div class="itinerary-row">
                     <svg class="itinerary-icon" fill="none" stroke="#2a323d" stroke-width="1.2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                    <span class="itinerary-label">Ceremonia</span> <!--[cite: 2] -->
-                    <span class="itinerary-time">5:00 PM</span> <!--[cite: 2] -->
-                </div>
+                    <span class="itinerary-label">Ceremonia</span> <span class="itinerary-time">5:00 PM</span> </div>
 
                 <div class="itinerary-row">
                     <svg class="itinerary-icon" fill="none" stroke="#2a323d" stroke-width="1.2" viewBox="0 0 24 24"><path d="M12 2v10M5 2h14M12 12a5 5 0 0 1-5-5H5a7 7 0 0 0 14 0h-2a5 5 0 0 1-5 5zM19 22H5M12 12v10"></path></svg>
-                    <span class="itinerary-label">Cóctel</span> <!--[cite: 2] -->
-                    <span class="itinerary-time">6:00 PM</span> <!--[cite: 2] -->
-                </div>
+                    <span class="itinerary-label">Cóctel</span> <span class="itinerary-time">6:00 PM</span> </div>
 
                 <div class="itinerary-row">
                     <svg class="itinerary-icon" fill="none" stroke="#2a323d" stroke-width="1.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                    <span class="itinerary-label">Recepción</span> <!--[cite: 2] -->
-                    <span class="itinerary-time">7:00 PM</span> <!--[cite: 2] -->
-                </div>
+                    <span class="itinerary-label">Recepción</span> <span class="itinerary-time">7:00 PM</span> </div>
 
                 <div class="itinerary-row">
                     <svg class="itinerary-icon" fill="none" stroke="#2a323d" stroke-width="1.2" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v12M6 12h12"></path></svg>
-                    <span class="itinerary-label">Celebración</span> <!--[cite: 2] -->
-                    <span class="itinerary-time">8:00 PM</span> <!--[cite: 2] -->
-                </div>
+                    <span class="itinerary-label">Celebración</span> <span class="itinerary-time">8:00 PM</span> </div>
             </div>
         </section>
 
         <div class="card-divider"></div>
 
-        <!-- SECCIÓN 3: DRESS CODE -->
         <section>
-            <h2 class="section-title">Dress Code</h2> <!--[cite: 2] -->
-            <p class="dress-main">Formal Campestre</p> <!--[cite: 2] -->
-            
-            <div class="dress-icon-container">
+            <h2 class="section-title">Dress Code</h2> <p class="dress-main">Formal Campestre</p> <div class="dress-icon-container">
                 <svg width="60" height="40" viewBox="0 0 80 40" fill="none" stroke="#6e7a8a" stroke-width="1.2">
                     <path d="M20 10 L25 22 L15 35 L35 35 L29 22 L34 10 Z" />
                     <path d="M50 10 L65 10 L68 25 L62 35 L53 35 L47 25 Z" />
@@ -441,95 +463,107 @@
                 </svg>
             </div>
 
-            <p class="dress-desc"><strong>Damas:</strong> Vestido midi o largo</p> <!--[cite: 2] -->
-            <p class="dress-desc"><strong>Caballeros:</strong> Pantalón, camisa y blazer</p> <!--[cite: 2] -->
-            <p class="dress-alert">El blanco está reservado para la novia</p> <!--[cite: 2] -->
-        </section>
+            <p class="dress-desc"><strong>Damas:</strong> Vestido midi o largo</p> <p class="dress-desc"><strong>Caballeros:</strong> Pantalón, camisa y blazer</p> <p class="dress-alert">El blanco está reservado para la novia</p> </section>
 
         <div class="card-divider"></div>
 
-        <!-- SECCIÓN 4: CONFIRMACIÓN Y CONTADOR -->
         <section>
-            <h2 class="section-title">Confirmación</h2> <!--[cite: 2] -->
-            <p class="body-text-sans" style="margin-bottom: 35px; padding: 0 10px;">
-                Esperamos con ansias compartir este día contigo. Por favor confirma tu asistencia antes del 15 de octubre de 2026. <!--[cite: 2] -->
-            </p>
+            <h2 class="section-title">Confirmación</h2> <p class="body-text-sans" style="margin-bottom: 35px; padding: 0 10px;">
+                Esperamos con ansias compartir este día contigo. Por favor confirma tu asistencia antes del 15 de octubre de 2026. </p>
 
             <form onsubmit="event.preventDefault(); alert('Confirmación procesada.');">
                 <div class="input-box">
-                    <label>Nombre Completo</label> <!--[cite: 2] -->
-                    <input type="text" class="field-input" required>
+                    <label>Nombre Completo</label> <input type="text" class="field-input" required>
                 </div>
 
                 <div class="input-box">
-                    <label>¿Asistirá?</label> <!--[cite: 2] -->
-                    <div class="option-grid">
+                    <label>¿Asistirá?</label> <div class="option-grid">
                         <div class="option-card selected" id="opt-si" onclick="setAttendance(true)">
-                            Sí, asistiré <!--[cite: 2] -->
-                        </div>
+                            Sí, asistiré </div>
                         <div class="option-card" id="opt-no" onclick="setAttendance(false)">
-                            No podré ir <!--[cite: 2] -->
-                        </div>
+                            No podré ir </div>
                     </div>
                 </div>
 
                 <div class="input-box" id="guests-field">
-                    <label>Número de Invitados</label> <!--[cite: 2] -->
-                    <input type="number" class="field-input" min="1" max="10" value="1"> <!--[cite: 2] -->
-                </div>
+                    <label>Número de Invitados</label> <input type="number" class="field-input" min="1" max="10" value="1"> </div>
 
-                <button type="submit" class="submit-btn">Confirmar Asistencia</button> <!--[cite: 2] -->
-            </form>
+                <button type="submit" class="submit-btn">Confirmar Asistencia</button> </form>
 
             <div class="card-divider" style="width: 30%; margin: 45px auto 20px auto;"></div>
             
-            <p class="section-title" style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 10px;">Solo Faltan</p> <!--[cite: 2] -->
-            <div class="timer-layout">
+            <p class="section-title" style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 10px;">Solo Faltan</p> <div class="timer-layout">
                 <div class="timer-cell">
                     <span class="timer-val" id="dias">00</span>
-                    <span class="timer-tag">Días</span> <!--[cite: 2] -->
-                </div>
+                    <span class="timer-tag">Días</span> </div>
                 <div class="timer-cell">
                     <span class="timer-val" id="horas">00</span>
-                    <span class="timer-tag">Horas</span> <!--[cite: 2] -->
-                </div>
+                    <span class="timer-tag">Horas</span> </div>
                 <div class="timer-cell">
                     <span class="timer-val" id="minutos">00</span>
-                    <span class="timer-tag">Min</span> <!--[cite: 2] -->
-                </div>
+                    <span class="timer-tag">Min</span> </div>
             </div>
         </section>
 
         <div class="card-divider"></div>
 
-        <!-- SECCIÓN 5: SOBRES Y DATOS -->
         <section>
-            <h2 class="section-title">Lluvia de Sobres</h2> <!--[cite: 2] -->
-            <p class="body-text-sans" style="margin-bottom: 20px;">
-                Tu presencia será nuestro mayor regalo. Si deseas obsequiarnos algo adicional, puedes hacerlo mediante un sobre cerrado o a la siguiente cuenta. <!--[cite: 2] -->
-            </p>
+            <h2 class="section-title">Lluvia de Sobres</h2> <p class="body-text-sans" style="margin-bottom: 20px;">
+                Tu presencia será nuestro mayor regalo. Si deseas obsequiarnos algo adicional, puedes hacerlo mediante un sobre cerrado o a la siguiente cuenta. </p>
 
             <div class="account-box">
-                <p><strong>Titular:</strong> Jhon Alen González Alvarado</p> <!--[cite: 2] -->
-                <p><strong>Banco:</strong> Banco Guayaquil</p> <!--[cite: 2] -->
-                <p><strong>Tipo:</strong> Cta. Ahorros</p> <!--[cite: 2] -->
-                <p><strong>N.º:</strong> 0004224670</p> <!--[cite: 2] -->
-                <p><strong>Correo:</strong> jhonalen98@gmail.com</p> <!--[cite: 2] -->
-            </div>
+                <p><strong>Titular:</strong> Jhon Alen González Alvarado</p> <p><strong>Banco:</strong> Banco Guayaquil</p> <p><strong>Tipo:</strong> Cta. Ahorros</p> <p><strong>N.º:</strong> 0004224670</p> <p><strong>Correo:</strong> jhonalen98@gmail.com</p> </div>
 
             <p class="italic-phrase" style="margin-top: 45px;">
-                "Hay momentos en la vida que son especiales por sí solos. Compartirlos contigo los convierte en inolvidables. Gracias por acompañarnos." <!--[cite: 2] -->
-            </p>
+                "Hay momentos en la vida que son especiales por sí solos. Compartirlos contigo los convierte en inolvidables. Gracias por acompañarnos." </p>
 
             <p class="header-title" style="margin-top: 40px; font-weight: 400; font-size: 1.2rem; letter-spacing: 4px; color: var(--accent-blue);">
-                Jhon & Keyla <!--[cite: 2] -->
-            </p>
-            <p style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 4px; color: var(--text-muted); margin-top: 5px;">2026</p> <!--[cite: 2] -->
-        </section>
+                Jhon & Keyla </p>
+            <p style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 4px; color: var(--text-muted); margin-top: 5px;">2026</p> </section>
 
     </div>
 
     <script>
+        const audio = document.getElementById('bg-music');
+        const btn = document.getElementById('music-toggle');
+
+        // Función manual de reproducir/pausar por botón
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    btn.classList.add('playing');
+                }).catch(err => console.log("Interacción requerida por el navegador"));
+            } else {
+                audio.pause();
+                btn.classList.remove('playing');
+            }
+        }
+
+        // --- TRUCO AUTOPLAY EN WEB MÓVIL ---
+        // Se ejecuta automáticamente al primer micro-movimiento o toque del invitado en la pantalla
+        function startAutoplay() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    btn.classList.add('playing');
+                    cleanAutoplayListeners();
+                }).catch(() => {
+                    // Si el navegador bloquea el intento en segundo plano, espera al próximo toque implícito
+                });
+            }
+        }
+
+        // Agregamos listeners para capturar cualquier sutil interacción inicial del invitado
+        window.addEventListener('scroll', startAutoplay, { passive: true });
+        window.addEventListener('touchstart', startAutoplay, { passive: true });
+        window.addEventListener('click', startAutoplay, { passive: true });
+
+        // Removemos los eventos una vez que la música empiece con éxito
+        function cleanAutoplayListeners() {
+            window.removeEventListener('scroll', startAutoplay);
+            window.removeEventListener('touchstart', startAutoplay);
+            window.removeEventListener('click', startAutoplay);
+        }
+
         function setAttendance(willAttend) {
             const btnSi = document.getElementById('opt-si');
             const btnNo = document.getElementById('opt-no');
